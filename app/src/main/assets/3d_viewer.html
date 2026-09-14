@@ -16,17 +16,9 @@
     
     <script type="module">
         import { OrbitControls } from 'https://unpkg.com/three@0.158.0/examples/jsm/controls/OrbitControls.js';
+        import { GLTFLoader } from 'https://unpkg.com/three@0.158.0/examples/jsm/loaders/GLTFLoader.js';
 
-        let scene, camera, renderer, controls, liftGroup, mainWalls;
-        
-        const wallIndices = {
-            'right': 0,
-            'left': 1,
-            'top': 2,
-            'bottom': 3,
-            'front': 4,
-            'back': 5
-        };
+        let scene, camera, renderer, controls, liftGroup, mixer, clock;
 
         const textureColors = {
             'metal': { color: 0x888888, roughness: 0.3, metalness: 0.8 },
@@ -36,103 +28,60 @@
 
         function init() {
             scene = new THREE.Scene();
-            // Background is null to allow HTML/Android background to show through
             scene.background = null;
 
             camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, 0, 0.1); // Slightly offset from center so OrbitControls works properly
+            camera.position.set(0, 1.5, 3); // Adjust camera position for typical model scale
 
-            // Enable alpha for transparency
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setClearColor(0x000000, 0); // Transparent clear color
+            renderer.setClearColor(0x000000, 0); 
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.body.appendChild(renderer.domElement);
 
-            // OrbitControls for touch-and-drag interaction
             controls = new OrbitControls(camera, renderer.domElement);
-            controls.enablePan = false;
+            controls.enablePan = true;
             controls.enableZoom = true;
-            controls.minDistance = 0.01;
-            controls.maxDistance = 0.8; // Restrict zoom to stay inside the lift
-            controls.target.set(0, 0, 0);
+            controls.target.set(0, 1, 0);
 
             // Lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
             scene.add(ambientLight);
             
-            const pointLight = new THREE.PointLight(0xffeedd, 1, 5);
-            pointLight.position.set(0, 1, 0); // Ceiling light
-            scene.add(pointLight);
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            dirLight.position.set(2, 5, 5);
+            scene.add(dirLight);
 
-            buildDetailedLift();
+            clock = new THREE.Clock();
+
+            // Load GLB model
+            const loader = new GLTFLoader();
+            loader.load(
+                'simple-elevator-with-animation/source/ElevatorAnimation.glb',
+                function (gltf) {
+                    liftGroup = gltf.scene;
+                    
+                    // Center and scale model slightly if necessary
+                    // liftGroup.scale.set(0.5, 0.5, 0.5); 
+                    
+                    scene.add(liftGroup);
+
+                    // Setup animation if the model has one
+                    if (gltf.animations && gltf.animations.length > 0) {
+                        mixer = new THREE.AnimationMixer(liftGroup);
+                        const action = mixer.clipAction(gltf.animations[0]);
+                        action.play();
+                    }
+                },
+                function (xhr) {
+                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                },
+                function (error) {
+                    console.error('An error happened loading GLTF:', error);
+                }
+            );
 
             window.addEventListener('resize', onWindowResize, false);
             animate();
-        }
-
-        function buildDetailedLift() {
-            liftGroup = new THREE.Group();
-
-            // 1. Main Walls (Box) - inverted normals to see inside
-            const wallGeometry = new THREE.BoxGeometry(2, 2.5, 2);
-            wallGeometry.scale(-1, -1, -1);
-
-            const materials = [];
-            for (let i = 0; i < 6; i++) {
-                materials.push(new THREE.MeshStandardMaterial({
-                    color: textureColors['metal'].color,
-                    roughness: textureColors['metal'].roughness,
-                    metalness: textureColors['metal'].metalness,
-                    side: THREE.BackSide
-                }));
-            }
-
-            mainWalls = new THREE.Mesh(wallGeometry, materials);
-            liftGroup.add(mainWalls);
-
-            // 2. Lift Doors (Front wall inner side)
-            // Front is at z = -1 (since we scaled -1, -1, -1, the actual front face is +z, but let's check)
-            // Wait, front face in BoxGeometry is +z. Let's place doors at z = 0.99
-            const doorGeo = new THREE.PlaneGeometry(0.9, 2.4);
-            const doorMat = new THREE.MeshStandardMaterial({ color: 0x999999, metalness: 0.7, roughness: 0.4 });
-            
-            const leftDoor = new THREE.Mesh(doorGeo, doorMat);
-            leftDoor.position.set(-0.45, 0, 0.98);
-            leftDoor.rotation.y = Math.PI; // Face inwards
-            liftGroup.add(leftDoor);
-
-            const rightDoor = new THREE.Mesh(doorGeo, doorMat);
-            rightDoor.position.set(0.45, 0, 0.98);
-            rightDoor.rotation.y = Math.PI;
-            liftGroup.add(rightDoor);
-
-            // 3. Control Panel (on right wall)
-            const panelGeo = new THREE.BoxGeometry(0.2, 0.8, 0.05);
-            const panelMat = new THREE.MeshStandardMaterial({ color: 0x333333 });
-            const panel = new THREE.Mesh(panelGeo, panelMat);
-            panel.position.set(0.95, 0, 0);
-            panel.rotation.y = -Math.PI / 2;
-            liftGroup.add(panel);
-
-            // Buttons on panel
-            const buttonGeo = new THREE.CylinderGeometry(0.02, 0.02, 0.02, 16);
-            const buttonMat = new THREE.MeshStandardMaterial({ color: 0xdddddd });
-            for(let i=0; i<4; i++) {
-                const btn = new THREE.Mesh(buttonGeo, buttonMat);
-                btn.rotation.x = Math.PI / 2;
-                btn.position.set(0.93, 0.2 - i*0.1, 0); // slightly protruding
-                liftGroup.add(btn);
-            }
-
-            // 4. Ceiling Light fixture
-            const lightGeo = new THREE.PlaneGeometry(1, 1);
-            const lightMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-            const lightFixture = new THREE.Mesh(lightGeo, lightMat);
-            lightFixture.position.set(0, 1.24, 0);
-            lightFixture.rotation.x = Math.PI / 2;
-            liftGroup.add(lightFixture);
-
-            scene.add(liftGroup);
         }
 
         function onWindowResize() {
@@ -143,45 +92,46 @@
 
         function animate() {
             requestAnimationFrame(animate);
-            controls.update(); // required if damping is enabled or for manual camera adjustments
+            controls.update(); 
+            
+            if (mixer) {
+                mixer.update(clock.getDelta());
+            }
+
             renderer.render(scene, camera);
         }
 
         // --- Bridge Functions for Android ---
 
-        // The joystick still works, it will adjust the camera rotation programmatically
-        // Note: With OrbitControls, setting camera rotation directly can conflict,
-        // but we can rotate the liftGroup instead or adjust OrbitControls target.
-        // Easiest is to rotate the group when using the joystick.
-        let targetRotationX = 0;
-        let targetRotationY = 0;
-
         window.rotateCamera = function(deltaX, deltaY) {
-            // Apply joystick delta as rotation to the liftGroup
-            const maxAngle = Math.PI / 8;
-            liftGroup.rotation.y = deltaX * maxAngle;
-            liftGroup.rotation.x = deltaY * maxAngle;
+            if (liftGroup) {
+                const maxAngle = Math.PI;
+                liftGroup.rotation.y = deltaX * maxAngle;
+                // Avoid rotating on X too much for models, it causes them to flip
+            }
         };
 
         window.updateTexture = function(wallName, textureName) {
-            const faceIndex = wallIndices[wallName.toLowerCase()];
+            if (!liftGroup) return;
+
             const textureConfig = textureColors[textureName.toLowerCase()];
-            
-            if (faceIndex !== undefined && textureConfig) {
-                const material = mainWalls.material[faceIndex];
-                material.color.setHex(textureConfig.color);
-                material.roughness = textureConfig.roughness;
-                material.metalness = textureConfig.metalness;
-                
-                if (textureConfig.transparent) {
-                    material.transparent = true;
-                    material.opacity = textureConfig.opacity;
-                } else {
-                    material.transparent = false;
-                    material.opacity = 1.0;
+            if (!textureConfig) return;
+
+            // Traverse the loaded model and apply the texture to all meshes for now
+            // since we don't know the exact mesh names for "front/left/right" in the provided model
+            liftGroup.traverse(function(child) {
+                if (child.isMesh) {
+                    // Create a new material to avoid modifying shared materials incorrectly
+                    child.material = new THREE.MeshStandardMaterial({
+                        color: textureConfig.color,
+                        roughness: textureConfig.roughness,
+                        metalness: textureConfig.metalness,
+                        transparent: textureConfig.transparent || false,
+                        opacity: textureConfig.opacity || 1.0,
+                        side: THREE.DoubleSide // Ensure it's visible from inside/outside
+                    });
                 }
-                material.needsUpdate = true;
-            }
+            });
         };
 
         init();
