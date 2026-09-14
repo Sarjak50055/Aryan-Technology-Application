@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setAllowUniversalAccessFromFileURLs(true);
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient());
+        webView.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         webView.loadUrl("file:///android_asset/3d_viewer.html");
 
         // Setup Spinners

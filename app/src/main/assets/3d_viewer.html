@@ -65,6 +65,20 @@
                     
                     scene.add(liftGroup);
 
+                    // Auto-center and frame the model
+                    const box = new THREE.Box3().setFromObject(liftGroup);
+                    const size = box.getSize(new THREE.Vector3()).length();
+                    const center = box.getCenter(new THREE.Vector3());
+
+                    liftGroup.position.sub(center); // Center the model at 0,0,0
+
+                    camera.position.set(0, size * 0.2, size * 0.8);
+                    camera.lookAt(0, 0, 0);
+                    
+                    controls.target.set(0, 0, 0);
+                    controls.maxDistance = size * 2;
+                    controls.update();
+
                     // Setup animation if the model has one
                     if (gltf.animations && gltf.animations.length > 0) {
                         mixer = new THREE.AnimationMixer(liftGroup);
