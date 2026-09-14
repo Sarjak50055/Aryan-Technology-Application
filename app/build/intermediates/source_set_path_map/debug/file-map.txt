@@ -1,0 +1,31 @@
+com.example.myliftapp-core-1.9.0-0 /Users/demo/.gradle/caches/transforms-3/0bb5616a7558933ce9ef66db5210a361/transformed/core-1.9.0/res
+com.example.myliftapp-fragment-1.3.6-1 /Users/demo/.gradle/caches/transforms-3/1f4cd09a2851435419dc7fa0e69ba603/transformed/fragment-1.3.6/res
+com.example.myliftapp-jetified-startup-runtime-1.1.1-2 /Users/demo/.gradle/caches/transforms-3/27ad9f8620549cf878a9823d1a92824d/transformed/jetified-startup-runtime-1.1.1/res
+com.example.myliftapp-jetified-core-ktx-1.9.0-3 /Users/demo/.gradle/caches/transforms-3/2845494871d7efa564fd340b2ba87eae/transformed/jetified-core-ktx-1.9.0/res
+com.example.myliftapp-jetified-savedstate-1.2.0-4 /Users/demo/.gradle/caches/transforms-3/2858ab8177eb7332dc85ac073065dae4/transformed/jetified-savedstate-1.2.0/res
+com.example.myliftapp-jetified-annotation-experimental-1.3.0-5 /Users/demo/.gradle/caches/transforms-3/2904487a1a5e850953446720d7d709cc/transformed/jetified-annotation-experimental-1.3.0/res
+com.example.myliftapp-jetified-viewpager2-1.0.0-6 /Users/demo/.gradle/caches/transforms-3/4ba1059b46ff72a2880dc95da43253d6/transformed/jetified-viewpager2-1.0.0/res
+com.example.myliftapp-appcompat-1.6.1-7 /Users/demo/.gradle/caches/transforms-3/4f67dfc311dd2680d3f0bf628ba34b33/transformed/appcompat-1.6.1/res
+com.example.myliftapp-cardview-1.0.0-8 /Users/demo/.gradle/caches/transforms-3/54b4db044f2a55128fc06e9fb83ac6f5/transformed/cardview-1.0.0/res
+com.example.myliftapp-recyclerview-1.1.0-9 /Users/demo/.gradle/caches/transforms-3/587e31e609e29d9b1d53f291375deebf/transformed/recyclerview-1.1.0/res
+com.example.myliftapp-lifecycle-viewmodel-2.5.1-10 /Users/demo/.gradle/caches/transforms-3/69c03eaeac0672143ba5d75b589b9778/transformed/lifecycle-viewmodel-2.5.1/res
+com.example.myliftapp-lifecycle-livedata-core-2.5.1-11 /Users/demo/.gradle/caches/transforms-3/6ac41b8c0b45bf319ac0d060a480b906/transformed/lifecycle-livedata-core-2.5.1/res
+com.example.myliftapp-constraintlayout-2.1.4-12 /Users/demo/.gradle/caches/transforms-3/6f650d68a1b3d373f492e24a9a8ff434/transformed/constraintlayout-2.1.4/res
+com.example.myliftapp-jetified-activity-1.6.0-13 /Users/demo/.gradle/caches/transforms-3/72379726a869e3867d38059a08977cce/transformed/jetified-activity-1.6.0/res
+com.example.myliftapp-drawerlayout-1.1.1-14 /Users/demo/.gradle/caches/transforms-3/73df7b936fff82bfd17ef1ba3948e9a4/transformed/drawerlayout-1.1.1/res
+com.example.myliftapp-lifecycle-runtime-2.5.1-15 /Users/demo/.gradle/caches/transforms-3/7855be109deb2b8c3f8ecebd63f388a2/transformed/lifecycle-runtime-2.5.1/res
+com.example.myliftapp-jetified-lifecycle-process-2.4.1-16 /Users/demo/.gradle/caches/transforms-3/829161fcae4ae70cb1067ea6e477c54e/transformed/jetified-lifecycle-process-2.4.1/res
+com.example.myliftapp-jetified-lifecycle-viewmodel-savedstate-2.5.1-17 /Users/demo/.gradle/caches/transforms-3/8668294484aa042a490c880b176a4122/transformed/jetified-lifecycle-viewmodel-savedstate-2.5.1/res
+com.example.myliftapp-transition-1.2.0-18 /Users/demo/.gradle/caches/transforms-3/8a08d047c0700363187514a6102b09e6/transformed/transition-1.2.0/res
+com.example.myliftapp-jetified-emoji2-views-helper-1.2.0-19 /Users/demo/.gradle/caches/transforms-3/9c8f4d145780c89f559e09315ad51be9/transformed/jetified-emoji2-views-helper-1.2.0/res
+com.example.myliftapp-coordinatorlayout-1.1.0-20 /Users/demo/.gradle/caches/transforms-3/cb9e4179a2da163f1fda77918d5a7d2d/transformed/coordinatorlayout-1.1.0/res
+com.example.myliftapp-jetified-emoji2-1.2.0-21 /Users/demo/.gradle/caches/transforms-3/d79248370322701c6054f880a86d73d0/transformed/jetified-emoji2-1.2.0/res
+com.example.myliftapp-jetified-appcompat-resources-1.6.1-22 /Users/demo/.gradle/caches/transforms-3/e7144b8195b27177976495cafc405834/transformed/jetified-appcompat-resources-1.6.1/res
+com.example.myliftapp-material-1.9.0-23 /Users/demo/.gradle/caches/transforms-3/f0d327b5fa71a05459955de625eeb703/transformed/material-1.9.0/res
+com.example.myliftapp-pngs-24 /Users/demo/Downloads/Aryan Technology/app/build/generated/res/pngs/debug
+com.example.myliftapp-resValues-25 /Users/demo/Downloads/Aryan Technology/app/build/generated/res/resValues/debug
+com.example.myliftapp-packageDebugResources-26 /Users/demo/Downloads/Aryan Technology/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.example.myliftapp-packageDebugResources-27 /Users/demo/Downloads/Aryan Technology/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.example.myliftapp-merged_res-28 /Users/demo/Downloads/Aryan Technology/app/build/intermediates/merged_res/debug
+com.example.myliftapp-debug-29 /Users/demo/Downloads/Aryan Technology/app/src/debug/res
+com.example.myliftapp-main-30 /Users/demo/Downloads/Aryan Technology/app/src/main/res

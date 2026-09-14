@@ -1,0 +1,21 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable circle_background
+drawable glass_background
+drawable gradient_background
+drawable ic_launcher
+id bottom_container
+id btn_apply
+id controller_container
+id joystick_container
+id joystick_knob
+id navbar
+id texture_spinner
+id wall_spinner
+id webView
+id webViewContainer
+layout activity_main
+string app_name
+style Theme.LiftApp

@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "/Users/demo/.gradle/daemon/8.0/com.example.myliftapp-merged_res-28:/layout_activity_main.xml.flat",
+        "source": "/Users/demo/.gradle/daemon/8.0/com.example.myliftapp-main-30:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.myliftapp-merged_res-28:/drawable_gradient_background.xml.flat",
+        "source": "com.example.myliftapp-main-30:/drawable/gradient_background.xml"
+    },
+    {
+        "merged": "/Users/demo/.gradle/daemon/8.0/com.example.myliftapp-merged_res-28:/drawable_circle_background.xml.flat",
+        "source": "/Users/demo/.gradle/daemon/8.0/com.example.myliftapp-main-30:/drawable/circle_background.xml"
+    },
+    {
+        "merged": "com.example.myliftapp-merged_res-28:/drawable_circle_background.xml.flat",
+        "source": "com.example.myliftapp-main-30:/drawable/circle_background.xml"
+    },
+    {
+        "merged": "com.example.myliftapp-merged_res-28:/drawable_glass_background.xml.flat",
+        "source": "com.example.myliftapp-main-30:/drawable/glass_background.xml"
+    },
+    {
+        "merged": "/Users/demo/.gradle/daemon/8.0/com.example.myliftapp-merged_res-28:/drawable_ic_launcher.xml.flat",
+        "source": "/Users/demo/.gradle/daemon/8.0/com.example.myliftapp-main-30:/drawable/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.myliftapp-merged_res-28:/layout_activity_main.xml.flat",
+        "source": "com.example.myliftapp-main-30:/layout/activity_main.xml"
+    }
+]
