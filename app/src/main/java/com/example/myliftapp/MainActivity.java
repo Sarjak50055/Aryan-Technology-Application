@@ -14,6 +14,11 @@ import android.widget.FrameLayout;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.webkit.WebViewAssetLoader;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebResourceRequest;
+import android.net.Uri;
+
 public class MainActivity extends AppCompatActivity {
 
     private WebView webView;
@@ -43,12 +48,22 @@ public class MainActivity extends AppCompatActivity {
         // Setup WebView
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setAllowFileAccessFromFileURLs(true);
-        webSettings.setAllowUniversalAccessFromFileURLs(true);
-        webView.setWebViewClient(new WebViewClient());
+        // Modern approach for local assets: WebViewAssetLoader
+        
+        final WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
+                .addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(this))
+                .build();
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                return assetLoader.shouldInterceptRequest(request.getUrl());
+            }
+        });
         webView.setWebChromeClient(new WebChromeClient());
         webView.setBackgroundColor(android.graphics.Color.TRANSPARENT);
-        webView.loadUrl("file:///android_asset/3d_viewer.html");
+        // Load using the virtual domain
+        webView.loadUrl("https://appassets.androidplatform.net/assets/3d_viewer.html");
 
         // Setup Spinners
         String[] walls = {"front", "back", "left", "right", "top", "bottom"};
